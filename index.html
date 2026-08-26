@@ -1,0 +1,858 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heres Massa</title>
+<style>
+  @font-face {
+    font-family: 'New Science';
+    src: url('fonts/NewScience-Thin.woff2') format('woff2');
+    font-weight: 200; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'New Science';
+    src: url('fonts/NewScience-Light.woff2') format('woff2');
+    font-weight: 300; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'New Science';
+    src: url('fonts/NewScience-Regular.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'New Science';
+    src: url('fonts/NewScience-Medium.woff2') format('woff2');
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'New Science';
+    src: url('fonts/NewScience-SemiBold.woff2') format('woff2');
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+
+  :root {
+    --sand-1: #F2E8DF;
+    --sand-2: #D8C4A6;
+    --sand-3: #B6A484;
+    --terra-1: #7F2D1F;
+    --terra-2: #7F2D1F;
+    --terra-3: #7F2D1F;
+    --white: #FFFFFF;
+    --ink: var(--terra-3);
+    --max: 1240px;
+    --edge: clamp(28px, 3vw, 48px);
+    --pad-y: clamp(96px, 11vw, 148px);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--sand-1);
+    color: var(--ink);
+    font-family: 'New Science', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3 { margin: 0; font-weight: 300; letter-spacing: 0; text-wrap: balance; }
+  p { margin: 0; }
+  section { position: relative; }
+  :focus-visible { outline: 2px solid var(--terra-1); outline-offset: 3px; }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding-left: var(--edge);
+    padding-right: var(--edge);
+  }
+
+  .eyebrow {
+    font-family: 'New Science', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    color: var(--terra-1);
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(242, 232, 223, 0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(127, 45, 31, 0.14);
+  }
+  .header-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding-top: 26px;
+    padding-bottom: 26px;
+    padding-left: var(--edge);
+    padding-right: var(--edge);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+  }
+  .logo-mark {
+    height: 46px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .logo-mark svg { height: 100%; width: auto; display: block; }
+  nav.primary-nav {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+  nav.primary-nav a {
+    font-size: 0.94rem;
+    letter-spacing: 0.02em;
+    color: var(--terra-3);
+    opacity: 0.82;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+  nav.primary-nav a:hover { opacity: 1; }
+  .header-actions { display: flex; align-items: center; gap: 30px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'New Science', sans-serif;
+    font-weight: 500;
+    font-size: 0.98rem;
+    letter-spacing: 0.02em;
+    padding: 18px 34px;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-sm { padding: 14px 26px; font-size: 0.92rem; }
+  .btn-primary {
+    background: var(--terra-2);
+    color: var(--sand-1);
+  }
+  .btn-primary:hover { background: var(--terra-1); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--sand-1);
+    border: 1px solid var(--sand-1);
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--terra-2);
+    border: 1px solid rgba(127, 45, 31, 0.35);
+  }
+  .btn-ghost:hover { background: rgba(127, 45, 31, 0.06); }
+  .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: calc(100svh - 98px);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg { position: absolute; inset: 0; }
+  .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 35%; }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(100deg, rgba(58,22,15,0.86) 0%, rgba(58,22,15,0.62) 32%, rgba(58,22,15,0.22) 58%, rgba(58,22,15,0.06) 78%),
+      linear-gradient(0deg, rgba(31,12,8,0.35) 0%, rgba(31,12,8,0) 30%);
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 620px;
+  }
+  .hero-copy .eyebrow { color: var(--sand-2); }
+  .hero-copy h1 {
+    font-size: clamp(2.6rem, 4.6vw, 4.4rem);
+    line-height: 1.06;
+    color: var(--sand-1);
+  }
+  .hero-copy .lede {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--white);
+    max-width: 44ch;
+  }
+  .hero-actions { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 8px; }
+
+  /* ---------- Sobre ---------- */
+  .sobre {
+    background: var(--white);
+    padding: var(--pad-y) 0;
+  }
+  .sobre .wrap {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+  }
+  .sobre-media {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  .sobre-media img { width: 100%; height: 100%; object-fit: cover; }
+  .sobre-copy { display: flex; flex-direction: column; gap: 22px; max-width: 56ch; }
+  .sobre-copy h2 {
+    font-size: clamp(2rem, 3vw, 2.9rem);
+    color: var(--terra-2);
+  }
+  .sobre-copy .full-name { font-size: 0.98rem; color: var(--terra-1); letter-spacing: 0.01em; }
+  .sobre-copy p { font-size: 1.02rem; line-height: 1.75; color: var(--terra-3); }
+
+  /* ---------- Estrutura ---------- */
+  .estrutura {
+    background: var(--terra-2);
+    color: var(--sand-1);
+    padding: var(--pad-y) 0;
+  }
+  .estrutura-head .eyebrow { color: var(--sand-2); }
+  .estrutura-head h2 {
+    margin-top: 16px;
+    max-width: 22ch;
+    font-size: clamp(2rem, 3.4vw, 3.1rem);
+    line-height: 1.18;
+    color: var(--sand-1);
+  }
+  .estrutura-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(28px, 4vw, 56px);
+    margin-top: clamp(56px, 7vw, 88px);
+  }
+  .estrutura-item { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
+  .estrutura-icon {
+    width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--sand-2);
+  }
+  .estrutura-icon svg { width: 34px; height: 34px; }
+  .estrutura-item p { font-size: 0.98rem; line-height: 1.6; color: var(--sand-1); opacity: 0.92; max-width: 30ch; }
+
+  /* ---------- Carousels (shared) ---------- */
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    margin-bottom: clamp(44px, 6vw, 64px);
+    flex-wrap: wrap;
+  }
+  .section-head h2 {
+    font-size: clamp(2rem, 3vw, 2.9rem);
+    color: var(--terra-2);
+    max-width: 20ch;
+  }
+  .section-head .lede {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--terra-3);
+    max-width: 38ch;
+  }
+  .carousel-nav { display: flex; gap: 12px; }
+  .carousel-btn {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(127,45,31,0.3);
+    background: transparent;
+    color: var(--terra-2);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .carousel-btn:hover { background: rgba(127,45,31,0.08); }
+  .carousel-btn:active { transform: scale(0.94); }
+  .carousel-btn svg { width: 20px; height: 20px; }
+  .carousel-track {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    margin-left: calc(var(--edge) * -1);
+    margin-right: calc(var(--edge) * -1);
+    padding-left: var(--edge);
+    padding-right: var(--edge);
+  }
+  .carousel-track::-webkit-scrollbar { display: none; }
+  .carousel-card { scroll-snap-align: start; flex-shrink: 0; }
+
+  /* ---------- Metodologia ---------- */
+  .metodologia {
+    background: var(--sand-1);
+    padding: var(--pad-y) 0;
+  }
+  .terr-card {
+    background: var(--white);
+    width: min(560px, 82vw);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(127,45,31,0.12);
+  }
+  .terr-media { overflow: hidden; aspect-ratio: 16 / 10; }
+  .terr-media img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(0.94);
+    transition: transform 0.6s ease;
+  }
+  .terr-card:hover .terr-media img { transform: scale(1.04); }
+  .terr-body {
+    padding: 32px 34px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .terr-num { font-size: 0.78rem; color: var(--sand-3); letter-spacing: 0.08em; }
+  .terr-body h3 { font-size: 1.6rem; color: var(--terra-2); font-weight: 400; }
+  .terr-sub { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--terra-1); }
+  .terr-body p { font-size: 0.96rem; line-height: 1.62; color: var(--terra-3); }
+
+  /* ---------- Statement ---------- */
+  .statement {
+    background: var(--terra-2);
+    color: var(--sand-1);
+    padding: var(--pad-y) 0;
+  }
+  .statement .wrap { text-align: center; }
+  .statement blockquote {
+    margin: 0 auto;
+    max-width: 780px;
+    font-size: clamp(1.7rem, 3.6vw, 3rem);
+    line-height: 1.32;
+    font-weight: 300;
+    color: var(--sand-1);
+    text-wrap: balance;
+  }
+  .statement cite {
+    display: block;
+    margin-top: 28px;
+    font-style: normal;
+    font-size: 0.84rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sand-2);
+  }
+
+  /* ---------- Depoimentos ---------- */
+  .depoimentos {
+    background: var(--white);
+    padding: var(--pad-y) 0;
+  }
+  .testi-card {
+    background: var(--sand-1);
+    width: min(400px, 78vw);
+    padding: 34px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    justify-content: space-between;
+    min-height: 220px;
+  }
+  .testi-quote { font-size: 1.05rem; line-height: 1.6; color: var(--terra-3); }
+  .testi-name { font-size: 0.82rem; letter-spacing: 0.04em; color: var(--terra-1); text-transform: uppercase; }
+
+  /* ---------- Instagram ---------- */
+  .instagram {
+    background: var(--sand-1);
+    padding: var(--pad-y) 0;
+  }
+  .insta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .insta-tile {
+    overflow: hidden;
+    position: relative;
+    display: block;
+    border-radius: 2px;
+  }
+  .insta-tile img {
+    width: 100%; height: auto; display: block;
+    transition: transform 0.5s ease, filter 0.3s ease;
+  }
+  .insta-tile::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: rgba(58,22,15,0);
+    transition: background 0.3s ease;
+  }
+  .insta-tile:hover::after { background: rgba(58,22,15,0.18); }
+  .insta-tile:hover img { transform: scale(1.06); }
+
+  /* ---------- Contato ---------- */
+  .contato {
+    background: var(--sand-2);
+    padding: var(--pad-y) 0;
+  }
+  .contato .wrap {
+    display: grid;
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: end;
+  }
+  .contato-copy h2 {
+    font-size: clamp(2rem, 3vw, 2.9rem);
+    color: var(--terra-2);
+    margin-bottom: 22px;
+  }
+  .contato-copy > p { font-size: 1.02rem; line-height: 1.75; color: var(--terra-3); max-width: 48ch; margin-bottom: 34px; }
+  .contato-list { display: flex; flex-direction: column; gap: 22px; margin-bottom: 40px; }
+  .contato-item { display: flex; flex-direction: column; gap: 5px; }
+  .contato-item .label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--terra-1); }
+  .contato-item .value { font-size: 1.06rem; color: var(--terra-3); line-height: 1.5; }
+  .contato-item a.value:hover { color: var(--terra-1); }
+  .contato-media {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 2px;
+    align-self: end;
+    width: 100%;
+    box-shadow: 0 30px 70px rgba(127,45,31,0.22);
+  }
+  .contato-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; display: block; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--terra-3);
+    color: var(--sand-2);
+    padding: 56px 0 32px;
+  }
+  .footer-logo { height: 46px; display: inline-block; }
+  .footer-logo svg { height: 100%; width: auto; display: block; }
+  .footer-bottom {
+    max-width: var(--max);
+    margin: 40px auto 0;
+    padding-top: 22px;
+    padding-left: var(--edge);
+    padding-right: var(--edge);
+    border-top: 1px solid rgba(216,196,166,0.2);
+    font-size: 0.78rem;
+    color: var(--sand-2);
+    opacity: 0.7;
+  }
+  .footer-bottom a { color: var(--sand-1); opacity: 1; text-decoration: underline; text-underline-offset: 2px; }
+  .footer-bottom a:hover { color: var(--sand-2); }
+
+  .reveal { opacity: 1; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px) {
+    nav.primary-nav { display: none; }
+    .hero { min-height: 86svh; }
+    .hero-overlay {
+      background:
+        linear-gradient(180deg, rgba(58,22,15,0.35) 0%, rgba(58,22,15,0.55) 55%, rgba(58,22,15,0.88) 100%);
+    }
+    .hero-inner { display: flex; align-items: flex-end; min-height: 86svh; padding-bottom: 56px; }
+    .hero-copy { max-width: none; }
+    .sobre .wrap, .contato .wrap { grid-template-columns: 1fr; }
+    .contato .wrap { align-items: stretch; }
+    .sobre-media { max-width: 420px; }
+    .contato-media { order: -1; max-width: 420px; aspect-ratio: 4/5; }
+    .insta-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    .estrutura-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  @media (max-width: 560px) {
+    .header-inner { padding-top: 18px; padding-bottom: 18px; }
+    .logo-mark { height: 34px; }
+    .btn { padding: 16px 28px; }
+  }
+</style>
+
+<header>
+  <div class="header-inner">
+    <a href="#top" class="logo-mark" aria-label="Heres Massa"><?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1946.73 279.61">
+  <!-- Generator: Adobe Illustrator 30.7.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 114)  -->
+  <defs>
+    <style>
+      .logoHeader {
+        fill: #7f2d1f;
+      }
+    </style>
+  </defs>
+  <g>
+    <path class="logoHeader" d="M377.99,138.29c-87.4,0-161.12-58.4-184.39-138.29v279.61c23.27-79.89,96.99-138.29,184.39-138.29s161.12,58.4,184.39,138.29V0c-23.27,79.89-96.99,138.29-184.39,138.29Z"/>
+    <path class="logoHeader" d="M0,.07v279.47c22.47-77.03,91.86-134.05,175.18-137.98v-3.5C91.86,134.12,22.47,77.1,0,.07Z"/>
+  </g>
+  <g>
+    <g>
+      <path class="logoHeader" d="M697.69,186.18h8.84l26.33,41.13h.18l26.33-41.13h8.72v46.78h-5.53v-41.37h-.12l-26.39,41.37h-6.19l-26.45-41.37h-.12v41.37h-5.59v-46.78Z"/>
+      <path class="logoHeader" d="M780.78,216.48c0-13.59,3.79-16.95,20.08-16.95s19.9,3.31,19.9,14.97v3.61h-34.69c.06,9.14,1.98,11,14.97,11s14.43-1.74,14.43-7.15v-.06h5.29v.36c0,8.42-4.09,11.24-19.72,11.24-16.59,0-20.26-3.43-20.26-17.02ZM815.47,213.78v-.54c0-7.58-2.53-9.38-14.67-9.38s-14.49,1.74-14.73,9.92h29.4Z"/>
+      <path class="logoHeader" d="M831.58,216.48c0-13.35,3.85-16.95,18.52-16.95,11.6,0,14.85,1.8,17.14,5.83h.06v-19.18h5.29v46.78h-5.29v-5.29h-.06c-2.28,4.03-5.53,5.83-17.14,5.83-14.67,0-18.52-3.67-18.52-17.02ZM851.48,228.87c11,0,15.87-1.2,15.87-10.22v-4.27c0-9.02-4.87-10.22-15.87-10.22-12.15,0-14.49,2.04-14.49,12.33s2.35,12.39,14.49,12.39Z"/>
+      <path class="logoHeader" d="M885.69,186.18h5.29v7.46h-5.29v-7.46ZM885.69,200.07h5.29v32.89h-5.29v-32.89Z"/>
+      <path class="logoHeader" d="M902.88,216.48c0-13.71,3.97-16.95,19.96-16.95s19.84,3.55,19.84,12.87v.24h-5.29v-.18c0-6.25-2.16-8.3-14.55-8.3s-14.67,1.92-14.67,12.33,2.1,12.39,14.67,12.39,14.67-1.68,14.67-8.96v-.3h5.29v.42c0,10.22-3.55,13.53-19.96,13.53s-19.96-3.37-19.96-17.08Z"/>
+      <path class="logoHeader" d="M954.53,186.18h5.29v7.46h-5.29v-7.46ZM954.53,200.07h5.29v32.89h-5.29v-32.89Z"/>
+      <path class="logoHeader" d="M972.93,200.07h5.29v5.47h.06c2.35-4.09,5.95-6.01,15.75-6.01,13.11,0,17.44,3.91,17.44,14.37v19.06h-5.35v-18.46c0-7.88-2.4-10.22-13.35-10.22s-14.55,2.04-14.55,10.7v17.98h-5.29v-32.89Z"/>
+      <path class="logoHeader" d="M1022.53,223.52c-.12-7.46,4.39-10.1,15.81-10.1h16.72v-1.2c0-6.49-1.38-8.36-12.87-8.36-10.28,0-12.93,1.2-12.93,6.19v.24h-5.35v-.42c0-7.94,4.39-10.34,18.22-10.34,15.33,0,18.16,3.13,18.16,12.93v20.5h-5.23v-4.93h-.12c-1.68,3.79-6.19,5.47-15.87,5.47-11.85,0-16.41-2.4-16.53-9.98ZM1039.72,229.11c11.54,0,15.33-1.68,15.33-9.2v-2.1h-15.21c-8.42,0-12.09.54-12.02,5.59.06,4.69,3.19,5.71,11.91,5.71Z"/>
+      <path class="logoHeader" d="M1097.98,200.07h5.29v5.29h.06c2.28-4.03,5.53-5.83,16.78-5.83,15.03,0,18.88,3.61,18.88,16.95s-3.85,17.02-18.88,17.02c-11.24,0-14.49-1.8-16.78-5.83h-.06v17.44h-5.29v-45.03ZM1118.72,228.87c12.51,0,14.85-2.04,14.85-12.39s-2.35-12.33-14.85-12.33c-10.64,0-15.51,1.2-15.51,10.16v4.39c0,8.96,4.87,10.16,15.51,10.16Z"/>
+      <path class="logoHeader" d="M1149.14,223.52c-.12-7.46,4.39-10.1,15.81-10.1h16.72v-1.2c0-6.49-1.38-8.36-12.87-8.36-10.28,0-12.93,1.2-12.93,6.19v.24h-5.35v-.42c0-7.94,4.39-10.34,18.22-10.34,15.33,0,18.16,3.13,18.16,12.93v20.5h-5.23v-4.93h-.12c-1.68,3.79-6.19,5.47-15.87,5.47-11.85,0-16.41-2.4-16.53-9.98ZM1166.34,229.11c11.54,0,15.33-1.68,15.33-9.2v-2.1h-15.21c-8.42,0-12.09.54-12.02,5.59.06,4.69,3.19,5.71,11.91,5.71Z"/>
+      <path class="logoHeader" d="M1199.71,200.07h5.29v6.43h.06c1.86-3.85,5.11-6.49,13.23-6.49h7.64v4.57h-7.88c-9.92,0-13.05,3.67-13.05,11.72v16.65h-5.29v-32.89Z"/>
+      <path class="logoHeader" d="M1232.41,223.52c-.12-7.46,4.39-10.1,15.81-10.1h16.72v-1.2c0-6.49-1.38-8.36-12.87-8.36-10.28,0-12.93,1.2-12.93,6.19v.24h-5.35v-.42c0-7.94,4.39-10.34,18.22-10.34,15.33,0,18.16,3.13,18.16,12.93v20.5h-5.23v-4.93h-.12c-1.68,3.79-6.19,5.47-15.87,5.47-11.85,0-16.41-2.4-16.53-9.98ZM1249.61,229.11c11.54,0,15.33-1.68,15.33-9.2v-2.1h-15.21c-8.42,0-12.09.54-12.02,5.59.06,4.69,3.19,5.71,11.91,5.71Z"/>
+      <path class="logoHeader" d="M1307.15,209.57c0-20.02,4.63-24.29,28.8-24.29,22.19,0,27.66,3.25,27.66,16.59v.54h-5.47v-.18c0-9.98-3.67-11.84-22.19-11.84-20.32,0-23.21,2.53-23.21,19.12s2.89,19.24,23.15,19.24,22.49-2.34,22.49-12.63v-.3h5.53v.72c0,13.77-5.17,17.32-28.02,17.32-24.11,0-28.74-4.27-28.74-24.29Z"/>
+      <path class="logoHeader" d="M1374.66,216.48c0-13.71,3.73-16.95,20.98-16.95s20.98,3.25,20.98,16.95-3.73,17.02-20.98,17.02-20.98-3.31-20.98-17.02ZM1395.65,228.87c13.89,0,15.69-1.92,15.69-12.39s-1.8-12.33-15.69-12.33-15.69,1.92-15.69,12.33,1.8,12.39,15.69,12.39Z"/>
+      <path class="logoHeader" d="M1428.53,200.07h5.29v6.43h.06c1.86-3.85,5.11-6.49,13.23-6.49h7.64v4.57h-7.88c-9.92,0-13.05,3.67-13.05,11.72v16.65h-5.29v-32.89Z"/>
+      <path class="logoHeader" d="M1464.55,200.07h5.29v5.29h.06c2.28-4.03,5.53-5.83,16.78-5.83,15.03,0,18.88,3.61,18.88,16.95s-3.85,17.02-18.88,17.02c-11.24,0-14.49-1.8-16.78-5.83h-.06v17.44h-5.29v-45.03ZM1485.29,228.87c12.51,0,14.85-2.04,14.85-12.39s-2.35-12.33-14.85-12.33c-10.64,0-15.51,1.2-15.51,10.16v4.39c0,8.96,4.87,10.16,15.51,10.16Z"/>
+      <path class="logoHeader" d="M1516.19,216.48c0-13.71,3.73-16.95,20.98-16.95s20.98,3.25,20.98,16.95-3.73,17.02-20.98,17.02-20.98-3.31-20.98-17.02ZM1537.18,228.87c13.89,0,15.69-1.92,15.69-12.39s-1.8-12.33-15.69-12.33-15.69,1.92-15.69,12.33,1.8,12.39,15.69,12.39Z"/>
+      <path class="logoHeader" d="M1593.69,218.83c0-7.34,1.8-11.48,8.36-13.05-3.31-2.35-4.15-4.93-4.15-9.26,0-8.54,3.67-11.24,22.19-11.24s22.25,2.65,22.25,11.72v2.22h-5.47v-1.8c0-5.83-1.44-7.09-16.78-7.09s-16.59,1.32-16.59,6.43c0,3.25.72,4.45,3.97,6.19l33.07,17.68c.06-.72.06-1.56.06-2.47v-8.6h5.53v8.9c0,1.86-.12,3.55-.36,4.99l9.74,5.23-2.47,4.87-9.32-5.05c-3.13,3.91-9.92,5.35-23.75,5.35-22.01,0-26.28-3.55-26.28-15.03ZM1620.02,228.81c10.94,0,16.11-.66,18.58-3.07l-31.87-17.32c-6.25,1.14-7.45,3.61-7.45,9.74,0,8.72,2.28,10.64,20.74,10.64Z"/>
+      <path class="logoHeader" d="M1688.2,186.18h8.84l26.33,41.13h.18l26.34-41.13h8.72v46.78h-5.53v-41.37h-.12l-26.39,41.37h-6.19l-26.45-41.37h-.12v41.37h-5.59v-46.78Z"/>
+      <path class="logoHeader" d="M1771.29,216.48c0-13.59,3.79-16.95,20.08-16.95s19.9,3.31,19.9,14.97v3.61h-34.69c.06,9.14,1.98,11,14.97,11s14.43-1.74,14.43-7.15v-.06h5.29v.36c0,8.42-4.09,11.24-19.72,11.24-16.59,0-20.26-3.43-20.26-17.02ZM1805.98,213.78v-.54c0-7.58-2.52-9.38-14.67-9.38s-14.49,1.74-14.73,9.92h29.4Z"/>
+      <path class="logoHeader" d="M1823.36,200.07h5.29v5.47h.06c2.35-4.09,5.95-6.01,15.75-6.01,13.11,0,17.44,3.91,17.44,14.37v19.06h-5.35v-18.46c0-7.88-2.41-10.22-13.35-10.22s-14.55,2.04-14.55,10.7v17.98h-5.29v-32.89Z"/>
+      <path class="logoHeader" d="M1877.77,224.24v-19.72h-7.15v-4.45h7.15v-8.36h5.29v8.36h16.29v4.45h-16.29v18.82c0,4.45,1.14,5.17,5.71,5.17h11v4.45h-12.51c-6.85,0-9.5-1.92-9.5-8.72Z"/>
+      <path class="logoHeader" d="M1906.75,216.48c0-13.59,3.79-16.95,20.08-16.95s19.9,3.31,19.9,14.97v3.61h-34.69c.06,9.14,1.98,11,14.97,11s14.43-1.74,14.43-7.15v-.06h5.29v.36c0,8.42-4.09,11.24-19.72,11.24-16.59,0-20.26-3.43-20.26-17.02ZM1941.44,213.78v-.54c0-7.58-2.52-9.38-14.67-9.38s-14.49,1.74-14.73,9.92h29.4Z"/>
+    </g>
+    <g>
+      <path class="logoHeader" d="M697.69,29h13.8v49.02h105.09V29h13.65v114.19h-13.65v-52.69h-105.09v52.69h-13.8V29Z"/>
+      <path class="logoHeader" d="M853.26,102.97c0-33.17,9.25-41.39,49.02-41.39s48.58,8.07,48.58,36.55v8.81h-84.69c.15,22.31,4.84,26.86,36.55,26.86s35.23-4.26,35.23-17.47v-.15h12.92v.88c0,20.55-9.98,27.45-48.14,27.45-40.51,0-49.46-8.37-49.46-41.54ZM937.95,96.36v-1.32c0-18.49-6.16-22.9-35.81-22.9s-35.37,4.26-35.96,24.22h71.77Z"/>
+      <path class="logoHeader" d="M972.45,62.9h12.92v15.7h.15c4.55-9.39,12.48-15.85,32.29-15.85h18.64v11.15h-19.23c-24.22,0-31.85,8.95-31.85,28.62v40.66h-12.92V62.9Z"/>
+      <path class="logoHeader" d="M1045.39,102.97c0-33.17,9.25-41.39,49.02-41.39s48.58,8.07,48.58,36.55v8.81h-84.69c.15,22.31,4.84,26.86,36.55,26.86s35.23-4.26,35.23-17.47v-.15h12.92v.88c0,20.55-9.98,27.45-48.14,27.45-40.51,0-49.46-8.37-49.46-41.54ZM1130.08,96.36v-1.32c0-18.49-6.16-22.9-35.81-22.9s-35.37,4.26-35.96,24.22h71.77Z"/>
+      <path class="logoHeader" d="M1167.22,137.75c-4.55-3.82-6.17-9.69-6.17-18.93v-2.35h13.06v2.06c0,5.87,1.32,9.1,3.82,11.15,4.11,3.38,12.04,4.11,29.94,4.11,18.79,0,27.15-1.47,30.68-4.4,2.64-1.91,3.38-5.14,3.38-8.37,0-4.7-.88-7.34-3.08-9.25-3.38-3.08-9.54-3.67-32.58-4.4-23.34-.59-33.02-1.61-38.31-6.46-3.96-3.38-5.58-8.66-5.58-16.59s2.06-12.33,6.02-15.7c5.87-4.99,16.73-7.04,38.45-7.04s32.58,1.32,38.46,6.31c4.4,3.67,5.87,9.25,5.87,18.2v.44h-12.92v-.29c0-5.72-1.17-8.81-3.52-10.42-3.08-2.5-9.54-3.67-27.89-3.67s-25.1,1.47-28.47,4.11c-2.35,1.91-3.23,4.55-3.23,8.07s.59,6.31,3.08,8.22c3.82,2.93,9.54,3.23,32.58,3.82,25.1.73,33.91,2.5,38.75,6.9,3.96,3.67,5.28,8.95,5.28,17.17,0,7.34-1.61,12.92-6.02,16.73-6.16,5.58-18.79,7.34-40.95,7.34-25.1,0-34.64-1.76-40.65-6.75Z"/>
+      <path class="logoHeader" d="M1329.25,29h21.58l64.29,100.39h.44l64.29-100.39h21.28v114.19h-13.5V42.2h-.29l-64.43,100.98h-15.12l-64.58-100.98h-.29v100.98h-13.65V29Z"/>
+      <path class="logoHeader" d="M1523,120.14c-.29-18.2,10.72-24.66,38.6-24.66h40.8v-2.93c0-15.85-3.38-20.4-31.41-20.4-25.1,0-31.56,2.94-31.56,15.12v.59h-13.06v-1.03c0-19.37,10.72-25.24,44.47-25.24,37.43,0,44.32,7.63,44.32,31.56v50.05h-12.77v-12.04h-.29c-4.11,9.25-15.12,13.36-38.75,13.36-28.91,0-40.07-5.87-40.36-24.36ZM1564.97,133.79c28.18,0,37.43-4.11,37.43-22.46v-5.14h-37.13c-20.55,0-29.5,1.32-29.35,13.65.15,11.45,7.78,13.94,29.06,13.94Z"/>
+      <path class="logoHeader" d="M1641.15,137.75c-4.55-3.82-6.17-9.69-6.17-18.93v-2.35h13.06v2.06c0,5.87,1.32,9.1,3.82,11.15,4.11,3.38,12.04,4.11,29.94,4.11,18.79,0,27.15-1.47,30.68-4.4,2.64-1.91,3.38-5.14,3.38-8.37,0-4.7-.88-7.34-3.08-9.25-3.38-3.08-9.54-3.67-32.58-4.4-23.34-.59-33.02-1.61-38.31-6.46-3.96-3.38-5.58-8.66-5.58-16.59s2.06-12.33,6.02-15.7c5.87-4.99,16.73-7.04,38.45-7.04s32.58,1.32,38.46,6.31c4.4,3.67,5.87,9.25,5.87,18.2v.44h-12.92v-.29c0-5.72-1.17-8.81-3.52-10.42-3.08-2.5-9.54-3.67-27.89-3.67s-25.1,1.47-28.47,4.11c-2.35,1.91-3.23,4.55-3.23,8.07s.59,6.31,3.08,8.22c3.82,2.93,9.54,3.23,32.58,3.82,25.1.73,33.91,2.5,38.75,6.9,3.96,3.67,5.28,8.95,5.28,17.17,0,7.34-1.61,12.92-6.02,16.73-6.16,5.58-18.79,7.34-40.95,7.34-25.1,0-34.64-1.76-40.65-6.75Z"/>
+      <path class="logoHeader" d="M1751.23,137.75c-4.55-3.82-6.17-9.69-6.17-18.93v-2.35h13.06v2.06c0,5.87,1.32,9.1,3.82,11.15,4.11,3.38,12.04,4.11,29.94,4.11,18.79,0,27.15-1.47,30.68-4.4,2.64-1.91,3.38-5.14,3.38-8.37,0-4.7-.88-7.34-3.08-9.25-3.38-3.08-9.54-3.67-32.58-4.4-23.34-.59-33.02-1.61-38.31-6.46-3.96-3.38-5.58-8.66-5.58-16.59s2.06-12.33,6.02-15.7c5.87-4.99,16.73-7.04,38.45-7.04s32.58,1.32,38.46,6.31c4.4,3.67,5.87,9.25,5.87,18.2v.44h-12.92v-.29c0-5.72-1.17-8.81-3.52-10.42-3.08-2.5-9.54-3.67-27.89-3.67s-25.1,1.47-28.47,4.11c-2.35,1.91-3.23,4.55-3.23,8.07s.59,6.31,3.08,8.22c3.82,2.93,9.54,3.23,32.58,3.82,25.1.73,33.91,2.5,38.75,6.9,3.96,3.67,5.28,8.95,5.28,17.17,0,7.34-1.61,12.92-6.02,16.73-6.16,5.58-18.79,7.34-40.95,7.34-25.1,0-34.64-1.76-40.65-6.75Z"/>
+      <path class="logoHeader" d="M1854.56,120.14c-.29-18.2,10.72-24.66,38.6-24.66h40.8v-2.93c0-15.85-3.38-20.4-31.41-20.4-25.1,0-31.56,2.94-31.56,15.12v.59h-13.06v-1.03c0-19.37,10.72-25.24,44.47-25.24,37.43,0,44.32,7.63,44.32,31.56v50.05h-12.77v-12.04h-.29c-4.11,9.25-15.12,13.36-38.75,13.36-28.91,0-40.07-5.87-40.36-24.36ZM1896.53,133.79c28.18,0,37.43-4.11,37.43-22.46v-5.14h-37.13c-20.55,0-29.5,1.32-29.35,13.65.15,11.45,7.78,13.94,29.06,13.94Z"/>
+    </g>
+  </g>
+</svg></a>
+    <nav class="primary-nav" aria-label="Navegação principal">
+      <a href="#sobre">Sobre mim</a>
+      <a href="#metodologia">Metodologia</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-primary btn-sm" href="https://wa.me/5535999426957?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Heres%20Massa." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.45 1.33 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2Zm5.83 14.24c-.25.7-1.44 1.34-1.98 1.4-.5.06-1.13.08-1.83-.12-.42-.12-.96-.3-1.65-.6-2.9-1.25-4.8-4.16-4.94-4.35-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.13 1.01-2.42.26-.29.57-.36.76-.36.2 0 .38 0 .55.01.18.01.41-.07.64.49.25.6.83 2.06.9 2.21.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.65-.08.18-.21.75-.87.95-1.17.2-.3.4-.25.66-.15.27.1 1.71.81 2 .96.29.15.48.22.55.34.07.13.07.72-.18 1.4Z"/></svg>
+        Falar no WhatsApp
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-bg"><img src="images/hero-bg.jpg" alt="" role="presentation"></div>
+    <div class="hero-overlay"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Medicina para Corpo &amp; Mente</span>
+        <h1>Saúde mental, energia e qualidade de vida.</h1>
+        <p class="lede">Dr. Heres Massa integra corpo, mente e as camadas mais profundas do comportamento humano, com um cuidado clínico, atento e sempre ao seu lado.</p>
+        <div class="hero-actions">
+          <a class="btn btn-outline" href="https://wa.me/5535999426957?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Heres%20Massa." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.45 1.33 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2Zm5.83 14.24c-.25.7-1.44 1.34-1.98 1.4-.5.06-1.13.08-1.83-.12-.42-.12-.96-.3-1.65-.6-2.9-1.25-4.8-4.16-4.94-4.35-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.13 1.01-2.42.26-.29.57-.36.76-.36.2 0 .38 0 .55.01.18.01.41-.07.64.49.25.6.83 2.06.9 2.21.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.65-.08.18-.21.75-.87.95-1.17.2-.3.4-.25.66-.15.27.1 1.71.81 2 .96.29.15.48.22.55.34.07.13.07.72-.18 1.4Z"/></svg>
+            Agendar consulta
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sobre" id="sobre">
+    <div class="wrap">
+      <div class="sobre-media">
+        <img src="images/sobre-dr-heres-atendimento.jpg" alt="Dr. Heres Massa em atendimento" width="1000" height="750">
+      </div>
+      <div class="sobre-copy">
+        <span class="eyebrow">Sobre mim</span>
+        <h2>Dr. Heres Massa</h2>
+        <span class="full-name">Dr. Heres de Oliveira Massa</span>
+        <p>Sou médico com especialização em psiquiatria e atuo na fronteira entre a psiquiatria moderna e a medicina integrativa, com uma abordagem científica e prática, construída ao longo de milhares de atendimentos. O cuidado parte do diagnóstico médico e se estende à avaliação metabólica e hormonal, ao uso responsável de medicação e à hipnoterapia clínica como ferramenta terapêutica.</p>
+        <p>A proposta é simples: tratar a pessoa inteira, com métodos testados na prática clínica. Ansiedade, depressão, fadiga, compulsão alimentar e bloqueios emocionais raramente têm uma única causa, e raramente pedem uma única resposta.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="estrutura" id="estrutura">
+    <div class="wrap">
+      <div class="estrutura-head">
+        <span class="eyebrow">Ambiente sempre aconchegante</span>
+        <h2>Nossa clínica foi cuidadosamente planejada para oferecer um espaço tranquilo desde a recepção.</h2>
+      </div>
+      <div class="estrutura-grid">
+        
+        <div class="estrutura-item">
+          <div class="estrutura-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg></div>
+          <p>Estamos bem localizados, no edifício Unique, de frente com o hospital da Unimed.</p>
+        </div>
+
+        <div class="estrutura-item">
+          <div class="estrutura-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10.5h16"/><path d="M4 14.5h16"/><path d="M5.5 10.5a6.5 5 0 0 1 13 0"/><path d="M4 14.5c0 2.5 2 4 8 4s8-1.5 8-4"/></svg></div>
+          <p>O prédio conta com espaço amplo, arejado e com uma grande praça de alimentação.</p>
+        </div>
+
+        <div class="estrutura-item">
+          <div class="estrutura-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4.5 16V12l1.8-4.6A2 2 0 0 1 8.15 6h7.7a2 2 0 0 1 1.85 1.4L19.5 12v4"/><path d="M4.5 16v2.2a.8.8 0 0 0 .8.8h1.4a.8.8 0 0 0 .8-.8V16"/><path d="M16.5 16v2.2a.8.8 0 0 0 .8.8h1.4a.8.8 0 0 0 .8-.8V16"/><path d="M4.5 16h15"/><circle cx="8" cy="13" r="0.6" fill="currentColor" stroke="none"/><circle cx="16" cy="13" r="0.6" fill="currentColor" stroke="none"/></svg></div>
+          <p>Contamos também com estacionamento próprio, para o seu maior conforto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="metodologia" id="metodologia">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Metodologia</span>
+          <h2 style="margin-top:14px;">Quatro dimensões, um mesmo cuidado.</h2>
+          <p class="lede" style="margin-top:14px;">No seu tratamento, corpo, mente e as camadas mais profundas do seu comportamento são cuidados juntos, sempre com base médica.</p>
+        </div>
+        <div class="carousel-nav">
+          <button class="carousel-btn" data-target="terr-track" data-dir="-1" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="carousel-btn" data-target="terr-track" data-dir="1" aria-label="Próximo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+      <div class="carousel-track" id="terr-track">
+        
+        <article class="carousel-card terr-card">
+          <div class="terr-media"><img src="images/metodologia-corpo.jpg" alt="Corpo" loading="lazy"></div>
+          <div class="terr-body">
+            <span class="terr-num">01</span>
+            <span class="terr-sub">Biologia da mente</span>
+            <h3>Corpo</h3>
+            <p>Sua saúde mental também depende do seu corpo. Neuroquímica, metabolismo, vitaminas, energia e sono formam a base do seu equilíbrio emocional.</p>
+          </div>
+        </article>
+
+        <article class="carousel-card terr-card">
+          <div class="terr-media"><img src="images/metodologia-mente.jpg" alt="Mente" loading="lazy"></div>
+          <div class="terr-body">
+            <span class="terr-num">02</span>
+            <span class="terr-sub">Psiquiatria moderna</span>
+            <h3>Mente</h3>
+            <p>Uma psiquiatria que olha para a sua vida real: diagnóstico cuidadoso, tratamento de ansiedade e depressão, e uso responsável de medicação quando ela faz sentido para você.</p>
+          </div>
+        </article>
+
+        <article class="carousel-card terr-card">
+          <div class="terr-media"><img src="images/metodologia-mente-profunda.jpg" alt="Mente Profunda" loading="lazy"></div>
+          <div class="terr-body">
+            <span class="terr-num">03</span>
+            <span class="terr-sub">Hipnoterapia clínica</span>
+            <h3>Mente Profunda</h3>
+            <p>Traumas, padrões emocionais e compulsão alimentar nem sempre têm uma explicação simples. A hipnoterapia acessa a raiz desses padrões, onde eles começam, e trata a partir dali.</p>
+          </div>
+        </article>
+
+        <article class="carousel-card terr-card">
+          <div class="terr-media"><img src="images/metodologia-integracao.jpg" alt="Integração" loading="lazy"></div>
+          <div class="terr-body">
+            <span class="terr-num">04</span>
+            <span class="terr-sub">Performance</span>
+            <h3>Integração</h3>
+            <p>Quando sua mente está bem cuidada, isso aparece na sua energia, nos seus hábitos e na sua rotina. Estratégias médicas para você ter mais disposição, foco e equilíbrio no dia a dia.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="statement">
+    <div class="wrap">
+      <blockquote>&ldquo;Acredite no poder da mudança e na sua capacidade de se transformar. Você tem dentro de si a força necessária para superar qualquer obstáculo.&rdquo;</blockquote>
+      <cite>Dr. Heres Massa</cite>
+    </div>
+  </section>
+
+  <section class="depoimentos" id="depoimentos">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Depoimentos</span>
+          <h2 style="margin-top:14px;">Quem já passou pelo cuidado.</h2>
+          <p class="lede" style="margin-top:14px;">Um método que já acompanhou milhares de pacientes, e os resultados aparecem na rotina de quem passou por ele.</p>
+        </div>
+        <div class="carousel-nav">
+          <button class="carousel-btn" data-target="testi-track" data-dir="-1" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="carousel-btn" data-target="testi-track" data-dir="1" aria-label="Próximo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+      <div class="carousel-track" id="testi-track">
+        
+        <article class="carousel-card testi-card">
+          <p class="testi-quote">&ldquo;Excelente atendimento, excelente recepção. Tratamento sério e competente.&rdquo;</p>
+          <span class="testi-name">Yasmin E.</span>
+        </article>
+
+        <article class="carousel-card testi-card">
+          <p class="testi-quote">&ldquo;Ele é simplesmente maravilhoso: atencioso, super profissional. Passei por vários especialistas e ninguém resolvia meu problema.&rdquo;</p>
+          <span class="testi-name">Silmara S.</span>
+        </article>
+
+        <article class="carousel-card testi-card">
+          <p class="testi-quote">&ldquo;Sem dúvida o melhor profissional que consultei. Atendimento humanizado.&rdquo;</p>
+          <span class="testi-name">Natália G.</span>
+        </article>
+
+        <article class="carousel-card testi-card">
+          <p class="testi-quote">&ldquo;Recepção com atendimento de total excelência. O atendimento do Dr. Heres é humano.&rdquo;</p>
+          <span class="testi-name">Monique R.</span>
+        </article>
+
+        <article class="carousel-card testi-card">
+          <p class="testi-quote">&ldquo;Médico atencioso, educado e atualizado. Transformando vidas.&rdquo;</p>
+          <span class="testi-name">Denise P.</span>
+        </article>
+
+        <article class="carousel-card testi-card">
+          <p class="testi-quote">&ldquo;Médico atencioso, inteligente, acessível. Diagnóstico preciso, prescrição certeira.&rdquo;</p>
+          <span class="testi-name">Alessandra M.</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="instagram" id="instagram">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Instagram</span>
+          <h2 style="margin-top:14px;">@drheresmassa</h2>
+        </div>
+        <a class="btn btn-ghost btn-sm" href="https://www.instagram.com/drheresmassa/" target="_blank" rel="noopener">Seguir no Instagram</a>
+      </div>
+      <div class="insta-grid">
+<a class="insta-tile" href="https://www.instagram.com/drheresmassa/" target="_blank" rel="noopener"><img src="images/instagram-dia-do-psiquiatra.jpg" alt="Dia do Psiquiatra" loading="lazy"></a>
+<a class="insta-tile" href="https://www.instagram.com/drheresmassa/" target="_blank" rel="noopener"><img src="images/instagram-nem-toda-dor.jpg" alt="Nem toda dor tem nome ainda" loading="lazy"></a>
+<a class="insta-tile" href="https://www.instagram.com/drheresmassa/" target="_blank" rel="noopener"><img src="images/instagram-corpo-da-sinais.jpg" alt="O corpo dá sinais antes da mente pedir socorro" loading="lazy"></a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="contato" id="contato">
+    <div class="wrap">
+      <div class="contato-copy">
+        <span class="eyebrow">Agendamento</span>
+        <h2>Vamos conversar sobre o seu cuidado.</h2>
+        <p>O primeiro passo é uma conversa. Chame no WhatsApp para tirar dúvidas ou marcar sua consulta com o Dr. Heres Massa.</p>
+        <div class="contato-list">
+          <div class="contato-item">
+            <span class="label">WhatsApp, Poços de Caldas</span>
+            <a class="value" href="https://wa.me/5535999426957?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Heres%20Massa." target="_blank" rel="noopener">+55 35 99942-6957</a>
+          </div>
+          <div class="contato-item">
+            <span class="label">WhatsApp, Andradas</span>
+            <a class="value" href="https://wa.me/5535997441613?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Heres%20Massa." target="_blank" rel="noopener">+55 35 99744-1613</a>
+          </div>
+          <div class="contato-item">
+            <span class="label">Endereço, Poços de Caldas</span>
+            <span class="value">Av. Gentil Messias Kitate, 240, sala 216, Edifício Unique, Vila Cruz</span>
+          </div>
+          <div class="contato-item">
+            <span class="label">Endereço, Andradas</span>
+            <span class="value">Rua Padre Mariano Garzo, 238, Centro</span>
+          </div>
+          <div class="contato-item">
+            <span class="label">E-mail</span>
+            <a class="value" href="mailto:atendimento@drheresmassa.com.br">atendimento@drheresmassa.com.br</a>
+          </div>
+        </div>
+        <a class="btn btn-primary" href="https://wa.me/5535999426957?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Heres%20Massa." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.45 1.33 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2Zm5.83 14.24c-.25.7-1.44 1.34-1.98 1.4-.5.06-1.13.08-1.83-.12-.42-.12-.96-.3-1.65-.6-2.9-1.25-4.8-4.16-4.94-4.35-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.13 1.01-2.42.26-.29.57-.36.76-.36.2 0 .38 0 .55.01.18.01.41-.07.64.49.25.6.83 2.06.9 2.21.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.65-.08.18-.21.75-.87.95-1.17.2-.3.4-.25.66-.15.27.1 1.71.81 2 .96.29.15.48.22.55.34.07.13.07.72-.18 1.4Z"/></svg>
+          Falar no WhatsApp
+        </a>
+      </div>
+      <div class="contato-media">
+        <img src="images/contato-dr-heres.jpg" alt="Dr. Heres Massa" width="1000" height="1250">
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="#top" class="footer-logo" aria-label="Heres Massa"><?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1946.73 279.61">
+  <!-- Generator: Adobe Illustrator 30.7.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 114)  -->
+  <defs>
+    <style>
+      .logoFooter {
+        fill: #d8c4a6;
+      }
+    </style>
+  </defs>
+  <g>
+    <path class="logoFooter" d="M377.99,138.29c-87.4,0-161.12-58.4-184.39-138.29v279.61c23.27-79.89,96.99-138.29,184.39-138.29s161.12,58.4,184.39,138.29V0c-23.27,79.89-96.99,138.29-184.39,138.29Z"/>
+    <path class="logoFooter" d="M0,.07v279.47c22.47-77.03,91.86-134.05,175.18-137.98v-3.5C91.86,134.12,22.47,77.1,0,.07Z"/>
+  </g>
+  <g>
+    <g>
+      <path class="logoFooter" d="M697.69,186.18h8.84l26.33,41.13h.18l26.33-41.13h8.72v46.78h-5.53v-41.37h-.12l-26.39,41.37h-6.19l-26.45-41.37h-.12v41.37h-5.59v-46.78Z"/>
+      <path class="logoFooter" d="M780.78,216.48c0-13.59,3.79-16.95,20.08-16.95s19.9,3.31,19.9,14.97v3.61h-34.69c.06,9.14,1.98,11,14.97,11s14.43-1.74,14.43-7.15v-.06h5.29v.36c0,8.42-4.09,11.24-19.72,11.24-16.59,0-20.26-3.43-20.26-17.02ZM815.47,213.78v-.54c0-7.58-2.53-9.38-14.67-9.38s-14.49,1.74-14.73,9.92h29.4Z"/>
+      <path class="logoFooter" d="M831.58,216.48c0-13.35,3.85-16.95,18.52-16.95,11.6,0,14.85,1.8,17.14,5.83h.06v-19.18h5.29v46.78h-5.29v-5.29h-.06c-2.28,4.03-5.53,5.83-17.14,5.83-14.67,0-18.52-3.67-18.52-17.02ZM851.48,228.87c11,0,15.87-1.2,15.87-10.22v-4.27c0-9.02-4.87-10.22-15.87-10.22-12.15,0-14.49,2.04-14.49,12.33s2.35,12.39,14.49,12.39Z"/>
+      <path class="logoFooter" d="M885.69,186.18h5.29v7.46h-5.29v-7.46ZM885.69,200.07h5.29v32.89h-5.29v-32.89Z"/>
+      <path class="logoFooter" d="M902.88,216.48c0-13.71,3.97-16.95,19.96-16.95s19.84,3.55,19.84,12.87v.24h-5.29v-.18c0-6.25-2.16-8.3-14.55-8.3s-14.67,1.92-14.67,12.33,2.1,12.39,14.67,12.39,14.67-1.68,14.67-8.96v-.3h5.29v.42c0,10.22-3.55,13.53-19.96,13.53s-19.96-3.37-19.96-17.08Z"/>
+      <path class="logoFooter" d="M954.53,186.18h5.29v7.46h-5.29v-7.46ZM954.53,200.07h5.29v32.89h-5.29v-32.89Z"/>
+      <path class="logoFooter" d="M972.93,200.07h5.29v5.47h.06c2.35-4.09,5.95-6.01,15.75-6.01,13.11,0,17.44,3.91,17.44,14.37v19.06h-5.35v-18.46c0-7.88-2.4-10.22-13.35-10.22s-14.55,2.04-14.55,10.7v17.98h-5.29v-32.89Z"/>
+      <path class="logoFooter" d="M1022.53,223.52c-.12-7.46,4.39-10.1,15.81-10.1h16.72v-1.2c0-6.49-1.38-8.36-12.87-8.36-10.28,0-12.93,1.2-12.93,6.19v.24h-5.35v-.42c0-7.94,4.39-10.34,18.22-10.34,15.33,0,18.16,3.13,18.16,12.93v20.5h-5.23v-4.93h-.12c-1.68,3.79-6.19,5.47-15.87,5.47-11.85,0-16.41-2.4-16.53-9.98ZM1039.72,229.11c11.54,0,15.33-1.68,15.33-9.2v-2.1h-15.21c-8.42,0-12.09.54-12.02,5.59.06,4.69,3.19,5.71,11.91,5.71Z"/>
+      <path class="logoFooter" d="M1097.98,200.07h5.29v5.29h.06c2.28-4.03,5.53-5.83,16.78-5.83,15.03,0,18.88,3.61,18.88,16.95s-3.85,17.02-18.88,17.02c-11.24,0-14.49-1.8-16.78-5.83h-.06v17.44h-5.29v-45.03ZM1118.72,228.87c12.51,0,14.85-2.04,14.85-12.39s-2.35-12.33-14.85-12.33c-10.64,0-15.51,1.2-15.51,10.16v4.39c0,8.96,4.87,10.16,15.51,10.16Z"/>
+      <path class="logoFooter" d="M1149.14,223.52c-.12-7.46,4.39-10.1,15.81-10.1h16.72v-1.2c0-6.49-1.38-8.36-12.87-8.36-10.28,0-12.93,1.2-12.93,6.19v.24h-5.35v-.42c0-7.94,4.39-10.34,18.22-10.34,15.33,0,18.16,3.13,18.16,12.93v20.5h-5.23v-4.93h-.12c-1.68,3.79-6.19,5.47-15.87,5.47-11.85,0-16.41-2.4-16.53-9.98ZM1166.34,229.11c11.54,0,15.33-1.68,15.33-9.2v-2.1h-15.21c-8.42,0-12.09.54-12.02,5.59.06,4.69,3.19,5.71,11.91,5.71Z"/>
+      <path class="logoFooter" d="M1199.71,200.07h5.29v6.43h.06c1.86-3.85,5.11-6.49,13.23-6.49h7.64v4.57h-7.88c-9.92,0-13.05,3.67-13.05,11.72v16.65h-5.29v-32.89Z"/>
+      <path class="logoFooter" d="M1232.41,223.52c-.12-7.46,4.39-10.1,15.81-10.1h16.72v-1.2c0-6.49-1.38-8.36-12.87-8.36-10.28,0-12.93,1.2-12.93,6.19v.24h-5.35v-.42c0-7.94,4.39-10.34,18.22-10.34,15.33,0,18.16,3.13,18.16,12.93v20.5h-5.23v-4.93h-.12c-1.68,3.79-6.19,5.47-15.87,5.47-11.85,0-16.41-2.4-16.53-9.98ZM1249.61,229.11c11.54,0,15.33-1.68,15.33-9.2v-2.1h-15.21c-8.42,0-12.09.54-12.02,5.59.06,4.69,3.19,5.71,11.91,5.71Z"/>
+      <path class="logoFooter" d="M1307.15,209.57c0-20.02,4.63-24.29,28.8-24.29,22.19,0,27.66,3.25,27.66,16.59v.54h-5.47v-.18c0-9.98-3.67-11.84-22.19-11.84-20.32,0-23.21,2.53-23.21,19.12s2.89,19.24,23.15,19.24,22.49-2.34,22.49-12.63v-.3h5.53v.72c0,13.77-5.17,17.32-28.02,17.32-24.11,0-28.74-4.27-28.74-24.29Z"/>
+      <path class="logoFooter" d="M1374.66,216.48c0-13.71,3.73-16.95,20.98-16.95s20.98,3.25,20.98,16.95-3.73,17.02-20.98,17.02-20.98-3.31-20.98-17.02ZM1395.65,228.87c13.89,0,15.69-1.92,15.69-12.39s-1.8-12.33-15.69-12.33-15.69,1.92-15.69,12.33,1.8,12.39,15.69,12.39Z"/>
+      <path class="logoFooter" d="M1428.53,200.07h5.29v6.43h.06c1.86-3.85,5.11-6.49,13.23-6.49h7.64v4.57h-7.88c-9.92,0-13.05,3.67-13.05,11.72v16.65h-5.29v-32.89Z"/>
+      <path class="logoFooter" d="M1464.55,200.07h5.29v5.29h.06c2.28-4.03,5.53-5.83,16.78-5.83,15.03,0,18.88,3.61,18.88,16.95s-3.85,17.02-18.88,17.02c-11.24,0-14.49-1.8-16.78-5.83h-.06v17.44h-5.29v-45.03ZM1485.29,228.87c12.51,0,14.85-2.04,14.85-12.39s-2.35-12.33-14.85-12.33c-10.64,0-15.51,1.2-15.51,10.16v4.39c0,8.96,4.87,10.16,15.51,10.16Z"/>
+      <path class="logoFooter" d="M1516.19,216.48c0-13.71,3.73-16.95,20.98-16.95s20.98,3.25,20.98,16.95-3.73,17.02-20.98,17.02-20.98-3.31-20.98-17.02ZM1537.18,228.87c13.89,0,15.69-1.92,15.69-12.39s-1.8-12.33-15.69-12.33-15.69,1.92-15.69,12.33,1.8,12.39,15.69,12.39Z"/>
+      <path class="logoFooter" d="M1593.69,218.83c0-7.34,1.8-11.48,8.36-13.05-3.31-2.35-4.15-4.93-4.15-9.26,0-8.54,3.67-11.24,22.19-11.24s22.25,2.65,22.25,11.72v2.22h-5.47v-1.8c0-5.83-1.44-7.09-16.78-7.09s-16.59,1.32-16.59,6.43c0,3.25.72,4.45,3.97,6.19l33.07,17.68c.06-.72.06-1.56.06-2.47v-8.6h5.53v8.9c0,1.86-.12,3.55-.36,4.99l9.74,5.23-2.47,4.87-9.32-5.05c-3.13,3.91-9.92,5.35-23.75,5.35-22.01,0-26.28-3.55-26.28-15.03ZM1620.02,228.81c10.94,0,16.11-.66,18.58-3.07l-31.87-17.32c-6.25,1.14-7.45,3.61-7.45,9.74,0,8.72,2.28,10.64,20.74,10.64Z"/>
+      <path class="logoFooter" d="M1688.2,186.18h8.84l26.33,41.13h.18l26.34-41.13h8.72v46.78h-5.53v-41.37h-.12l-26.39,41.37h-6.19l-26.45-41.37h-.12v41.37h-5.59v-46.78Z"/>
+      <path class="logoFooter" d="M1771.29,216.48c0-13.59,3.79-16.95,20.08-16.95s19.9,3.31,19.9,14.97v3.61h-34.69c.06,9.14,1.98,11,14.97,11s14.43-1.74,14.43-7.15v-.06h5.29v.36c0,8.42-4.09,11.24-19.72,11.24-16.59,0-20.26-3.43-20.26-17.02ZM1805.98,213.78v-.54c0-7.58-2.52-9.38-14.67-9.38s-14.49,1.74-14.73,9.92h29.4Z"/>
+      <path class="logoFooter" d="M1823.36,200.07h5.29v5.47h.06c2.35-4.09,5.95-6.01,15.75-6.01,13.11,0,17.44,3.91,17.44,14.37v19.06h-5.35v-18.46c0-7.88-2.41-10.22-13.35-10.22s-14.55,2.04-14.55,10.7v17.98h-5.29v-32.89Z"/>
+      <path class="logoFooter" d="M1877.77,224.24v-19.72h-7.15v-4.45h7.15v-8.36h5.29v8.36h16.29v4.45h-16.29v18.82c0,4.45,1.14,5.17,5.71,5.17h11v4.45h-12.51c-6.85,0-9.5-1.92-9.5-8.72Z"/>
+      <path class="logoFooter" d="M1906.75,216.48c0-13.59,3.79-16.95,20.08-16.95s19.9,3.31,19.9,14.97v3.61h-34.69c.06,9.14,1.98,11,14.97,11s14.43-1.74,14.43-7.15v-.06h5.29v.36c0,8.42-4.09,11.24-19.72,11.24-16.59,0-20.26-3.43-20.26-17.02ZM1941.44,213.78v-.54c0-7.58-2.52-9.38-14.67-9.38s-14.49,1.74-14.73,9.92h29.4Z"/>
+    </g>
+    <g>
+      <path class="logoFooter" d="M697.69,29h13.8v49.02h105.09V29h13.65v114.19h-13.65v-52.69h-105.09v52.69h-13.8V29Z"/>
+      <path class="logoFooter" d="M853.26,102.97c0-33.17,9.25-41.39,49.02-41.39s48.58,8.07,48.58,36.55v8.81h-84.69c.15,22.31,4.84,26.86,36.55,26.86s35.23-4.26,35.23-17.47v-.15h12.92v.88c0,20.55-9.98,27.45-48.14,27.45-40.51,0-49.46-8.37-49.46-41.54ZM937.95,96.36v-1.32c0-18.49-6.16-22.9-35.81-22.9s-35.37,4.26-35.96,24.22h71.77Z"/>
+      <path class="logoFooter" d="M972.45,62.9h12.92v15.7h.15c4.55-9.39,12.48-15.85,32.29-15.85h18.64v11.15h-19.23c-24.22,0-31.85,8.95-31.85,28.62v40.66h-12.92V62.9Z"/>
+      <path class="logoFooter" d="M1045.39,102.97c0-33.17,9.25-41.39,49.02-41.39s48.58,8.07,48.58,36.55v8.81h-84.69c.15,22.31,4.84,26.86,36.55,26.86s35.23-4.26,35.23-17.47v-.15h12.92v.88c0,20.55-9.98,27.45-48.14,27.45-40.51,0-49.46-8.37-49.46-41.54ZM1130.08,96.36v-1.32c0-18.49-6.16-22.9-35.81-22.9s-35.37,4.26-35.96,24.22h71.77Z"/>
+      <path class="logoFooter" d="M1167.22,137.75c-4.55-3.82-6.17-9.69-6.17-18.93v-2.35h13.06v2.06c0,5.87,1.32,9.1,3.82,11.15,4.11,3.38,12.04,4.11,29.94,4.11,18.79,0,27.15-1.47,30.68-4.4,2.64-1.91,3.38-5.14,3.38-8.37,0-4.7-.88-7.34-3.08-9.25-3.38-3.08-9.54-3.67-32.58-4.4-23.34-.59-33.02-1.61-38.31-6.46-3.96-3.38-5.58-8.66-5.58-16.59s2.06-12.33,6.02-15.7c5.87-4.99,16.73-7.04,38.45-7.04s32.58,1.32,38.46,6.31c4.4,3.67,5.87,9.25,5.87,18.2v.44h-12.92v-.29c0-5.72-1.17-8.81-3.52-10.42-3.08-2.5-9.54-3.67-27.89-3.67s-25.1,1.47-28.47,4.11c-2.35,1.91-3.23,4.55-3.23,8.07s.59,6.31,3.08,8.22c3.82,2.93,9.54,3.23,32.58,3.82,25.1.73,33.91,2.5,38.75,6.9,3.96,3.67,5.28,8.95,5.28,17.17,0,7.34-1.61,12.92-6.02,16.73-6.16,5.58-18.79,7.34-40.95,7.34-25.1,0-34.64-1.76-40.65-6.75Z"/>
+      <path class="logoFooter" d="M1329.25,29h21.58l64.29,100.39h.44l64.29-100.39h21.28v114.19h-13.5V42.2h-.29l-64.43,100.98h-15.12l-64.58-100.98h-.29v100.98h-13.65V29Z"/>
+      <path class="logoFooter" d="M1523,120.14c-.29-18.2,10.72-24.66,38.6-24.66h40.8v-2.93c0-15.85-3.38-20.4-31.41-20.4-25.1,0-31.56,2.94-31.56,15.12v.59h-13.06v-1.03c0-19.37,10.72-25.24,44.47-25.24,37.43,0,44.32,7.63,44.32,31.56v50.05h-12.77v-12.04h-.29c-4.11,9.25-15.12,13.36-38.75,13.36-28.91,0-40.07-5.87-40.36-24.36ZM1564.97,133.79c28.18,0,37.43-4.11,37.43-22.46v-5.14h-37.13c-20.55,0-29.5,1.32-29.35,13.65.15,11.45,7.78,13.94,29.06,13.94Z"/>
+      <path class="logoFooter" d="M1641.15,137.75c-4.55-3.82-6.17-9.69-6.17-18.93v-2.35h13.06v2.06c0,5.87,1.32,9.1,3.82,11.15,4.11,3.38,12.04,4.11,29.94,4.11,18.79,0,27.15-1.47,30.68-4.4,2.64-1.91,3.38-5.14,3.38-8.37,0-4.7-.88-7.34-3.08-9.25-3.38-3.08-9.54-3.67-32.58-4.4-23.34-.59-33.02-1.61-38.31-6.46-3.96-3.38-5.58-8.66-5.58-16.59s2.06-12.33,6.02-15.7c5.87-4.99,16.73-7.04,38.45-7.04s32.58,1.32,38.46,6.31c4.4,3.67,5.87,9.25,5.87,18.2v.44h-12.92v-.29c0-5.72-1.17-8.81-3.52-10.42-3.08-2.5-9.54-3.67-27.89-3.67s-25.1,1.47-28.47,4.11c-2.35,1.91-3.23,4.55-3.23,8.07s.59,6.31,3.08,8.22c3.82,2.93,9.54,3.23,32.58,3.82,25.1.73,33.91,2.5,38.75,6.9,3.96,3.67,5.28,8.95,5.28,17.17,0,7.34-1.61,12.92-6.02,16.73-6.16,5.58-18.79,7.34-40.95,7.34-25.1,0-34.64-1.76-40.65-6.75Z"/>
+      <path class="logoFooter" d="M1751.23,137.75c-4.55-3.82-6.17-9.69-6.17-18.93v-2.35h13.06v2.06c0,5.87,1.32,9.1,3.82,11.15,4.11,3.38,12.04,4.11,29.94,4.11,18.79,0,27.15-1.47,30.68-4.4,2.64-1.91,3.38-5.14,3.38-8.37,0-4.7-.88-7.34-3.08-9.25-3.38-3.08-9.54-3.67-32.58-4.4-23.34-.59-33.02-1.61-38.31-6.46-3.96-3.38-5.58-8.66-5.58-16.59s2.06-12.33,6.02-15.7c5.87-4.99,16.73-7.04,38.45-7.04s32.58,1.32,38.46,6.31c4.4,3.67,5.87,9.25,5.87,18.2v.44h-12.92v-.29c0-5.72-1.17-8.81-3.52-10.42-3.08-2.5-9.54-3.67-27.89-3.67s-25.1,1.47-28.47,4.11c-2.35,1.91-3.23,4.55-3.23,8.07s.59,6.31,3.08,8.22c3.82,2.93,9.54,3.23,32.58,3.82,25.1.73,33.91,2.5,38.75,6.9,3.96,3.67,5.28,8.95,5.28,17.17,0,7.34-1.61,12.92-6.02,16.73-6.16,5.58-18.79,7.34-40.95,7.34-25.1,0-34.64-1.76-40.65-6.75Z"/>
+      <path class="logoFooter" d="M1854.56,120.14c-.29-18.2,10.72-24.66,38.6-24.66h40.8v-2.93c0-15.85-3.38-20.4-31.41-20.4-25.1,0-31.56,2.94-31.56,15.12v.59h-13.06v-1.03c0-19.37,10.72-25.24,44.47-25.24,37.43,0,44.32,7.63,44.32,31.56v50.05h-12.77v-12.04h-.29c-4.11,9.25-15.12,13.36-38.75,13.36-28.91,0-40.07-5.87-40.36-24.36ZM1896.53,133.79c28.18,0,37.43-4.11,37.43-22.46v-5.14h-37.13c-20.55,0-29.5,1.32-29.35,13.65.15,11.45,7.78,13.94,29.06,13.94Z"/>
+    </g>
+  </g>
+</svg></a>
+  </div>
+  <div class="footer-bottom">
+    Todos os direitos reservados &copy; Dr. Heres Massa 2026, desenvolvido por <a href="https://www.instagram.com/aftermoon.agency/" target="_blank" rel="noopener">Aftermoon Agency</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.carousel-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var track = document.getElementById(btn.getAttribute('data-target'));
+      var dir = parseInt(btn.getAttribute('data-dir'), 10);
+      var card = track.querySelector('.carousel-card');
+      var step = card ? (card.getBoundingClientRect().width + 20) : 320;
+      track.scrollBy({ left: dir * step, behavior: 'smooth' });
+    });
+  });
+</script>
