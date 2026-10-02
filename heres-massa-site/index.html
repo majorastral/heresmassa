@@ -71,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
-  h1, h2, h3 { margin: 0; font-weight: 300; letter-spacing: 0; text-wrap: balance; }
+  h1, h2, h3 { margin: 0; font-weight: 300; letter-spacing: 0; text-wrap: balance; overflow-wrap: break-word; }
   p { margin: 0; }
   section { position: relative; }
   :focus-visible { outline: 2px solid var(--terra-1); outline-offset: 3px; }
@@ -117,8 +117,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     height: 46px;
     width: auto;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
   }
   .logo-mark svg { height: 100%; width: auto; display: block; }
+  .logo-compact { display: none; }
   nav.primary-nav {
     display: flex;
     gap: 40px;
@@ -133,7 +136,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     white-space: nowrap;
   }
   nav.primary-nav a:hover { opacity: 1; }
-  .header-actions { display: flex; align-items: center; gap: 30px; }
+  .header-actions { display: flex; align-items: center; gap: 30px; flex-shrink: 0; }
+
+  /* ---------- Mobile nav ---------- */
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 8px;
+    margin: -8px;
+    cursor: pointer;
+    color: var(--terra-2);
+    flex-shrink: 0;
+  }
+  .nav-toggle svg { width: 26px; height: 26px; display: block; }
+  .nav-toggle .icon-close { display: none; }
+  .nav-toggle.is-open .icon-menu { display: none; }
+  .nav-toggle.is-open .icon-close { display: block; }
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    background: var(--sand-1);
+    border-top: 1px solid rgba(127, 45, 31, 0.14);
+    padding: 8px var(--edge) 28px;
+  }
+  .mobile-nav.is-open { display: flex; }
+  .mobile-nav a {
+    padding: 15px 0;
+    font-size: 1rem;
+    color: var(--terra-3);
+    border-bottom: 1px solid rgba(127, 45, 31, 0.1);
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
 
   .btn {
     display: inline-flex;
@@ -221,6 +255,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     grid-template-columns: 0.85fr 1.15fr;
     gap: clamp(40px, 6vw, 96px);
     align-items: center;
+    min-width: 0;
   }
   .sobre-media {
     aspect-ratio: 4 / 5;
@@ -228,7 +263,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     border-radius: 2px;
   }
   .sobre-media img { width: 100%; height: 100%; object-fit: cover; }
-  .sobre-copy { display: flex; flex-direction: column; gap: 22px; max-width: 56ch; }
+  .sobre-copy { display: flex; flex-direction: column; gap: 22px; max-width: 56ch; min-width: 0; }
   .sobre-copy h2 {
     font-size: clamp(2rem, 3vw, 2.9rem);
     color: var(--terra-2);
@@ -278,7 +313,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size: clamp(2rem, 3vw, 2.9rem);
     color: var(--terra-2);
     max-width: 20ch;
+    overflow-wrap: anywhere;
   }
+  .section-head > div { min-width: 0; }
   .section-head .lede {
     font-size: 1rem;
     line-height: 1.7;
@@ -428,7 +465,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     grid-template-columns: 0.92fr 1.08fr;
     gap: clamp(40px, 6vw, 96px);
     align-items: end;
+    min-width: 0;
   }
+  .contato-copy { min-width: 0; }
   .contato-copy h2 {
     font-size: clamp(2rem, 3vw, 2.9rem);
     color: var(--terra-2);
@@ -438,7 +477,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .contato-list { display: flex; flex-direction: column; gap: 22px; margin-bottom: 40px; }
   .contato-item { display: flex; flex-direction: column; gap: 5px; }
   .contato-item .label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--terra-1); }
-  .contato-item .value { font-size: 1.06rem; color: var(--terra-3); line-height: 1.5; }
+  .contato-item .value { font-size: 1.06rem; color: var(--terra-3); line-height: 1.5; overflow-wrap: anywhere; }
   .contato-item a.value:hover { color: var(--terra-1); }
   .contato-media {
     aspect-ratio: 4 / 5;
@@ -458,6 +497,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .footer-logo { height: 46px; display: inline-block; }
   .footer-logo svg { height: 100%; width: auto; display: block; }
+  .footer-logo .logo-compact { display: none; }
   .footer-bottom {
     max-width: var(--max);
     margin: 40px auto 0;
@@ -475,8 +515,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .reveal { opacity: 1; }
 
   /* ---------- Responsive ---------- */
-  @media (max-width: 980px) {
+  @media (max-width: 1180px) {
     nav.primary-nav { display: none; }
+    .header-actions { display: none; }
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  }
+  @media (max-width: 980px) {
     .hero { min-height: 86svh; }
     .hero-overlay {
       background:
@@ -494,6 +538,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media (max-width: 560px) {
     .header-inner { padding-top: 18px; padding-bottom: 18px; }
     .logo-mark { height: 34px; }
+    .logo-mark .logo-full { display: none; }
+    .logo-mark .logo-compact { display: block; }
+    .footer-logo { height: 34px; }
+    .footer-logo .logo-full { display: none; }
+    .footer-logo .logo-compact { display: block; }
     .btn { padding: 16px 28px; }
   }
 </style>
@@ -507,7 +556,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header>
   <div class="header-inner">
     <a href="#top" class="logo-mark" aria-label="Heres Massa"><?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1946.73 279.61">
+<svg class="logo-full" id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1946.73 279.61">
   <!-- Generator: Adobe Illustrator 30.7.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 114)  -->
   <defs>
     <style>
@@ -559,6 +608,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <path class="logoHeader" d="M1854.56,120.14c-.29-18.2,10.72-24.66,38.6-24.66h40.8v-2.93c0-15.85-3.38-20.4-31.41-20.4-25.1,0-31.56,2.94-31.56,15.12v.59h-13.06v-1.03c0-19.37,10.72-25.24,44.47-25.24,37.43,0,44.32,7.63,44.32,31.56v50.05h-12.77v-12.04h-.29c-4.11,9.25-15.12,13.36-38.75,13.36-28.91,0-40.07-5.87-40.36-24.36ZM1896.53,133.79c28.18,0,37.43-4.11,37.43-22.46v-5.14h-37.13c-20.55,0-29.5,1.32-29.35,13.65.15,11.45,7.78,13.94,29.06,13.94Z"/>
     </g>
   </g>
+</svg><svg class="logo-compact" viewBox="0 0 562.38 279.61" aria-hidden="true">
+  <defs><style>.logoHeaderCompact{fill:#7f2d1f;}</style></defs>
+  <path class="logoHeaderCompact" d="M377.99,138.29c-87.4,0-161.12-58.4-184.39-138.29v279.61c23.27-79.89,96.99-138.29,184.39-138.29s161.12,58.4,184.39,138.29V0c-23.27,79.89-96.99,138.29-184.39,138.29Z"/>
+  <path class="logoHeaderCompact" d="M0,.07v279.47c22.47-77.03,91.86-134.05,175.18-137.98v-3.5C91.86,134.12,22.47,77.1,0,.07Z"/>
 </svg></a>
     <nav class="primary-nav" aria-label="Navegação principal">
       <a href="#sobre">Sobre mim</a>
@@ -571,6 +624,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         Falar no WhatsApp
       </a>
     </div>
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileNav">
+      <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#sobre">Sobre mim</a>
+    <a href="#metodologia">Metodologia</a>
+    <a href="#contato">Contato</a>
   </div>
 </header>
 
@@ -808,7 +870,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <footer>
   <div class="wrap">
     <a href="#top" class="footer-logo" aria-label="Heres Massa"><?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1946.73 279.61">
+<svg class="logo-full" id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1946.73 279.61">
   <!-- Generator: Adobe Illustrator 30.7.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 114)  -->
   <defs>
     <style>
@@ -860,6 +922,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <path class="logoFooter" d="M1854.56,120.14c-.29-18.2,10.72-24.66,38.6-24.66h40.8v-2.93c0-15.85-3.38-20.4-31.41-20.4-25.1,0-31.56,2.94-31.56,15.12v.59h-13.06v-1.03c0-19.37,10.72-25.24,44.47-25.24,37.43,0,44.32,7.63,44.32,31.56v50.05h-12.77v-12.04h-.29c-4.11,9.25-15.12,13.36-38.75,13.36-28.91,0-40.07-5.87-40.36-24.36ZM1896.53,133.79c28.18,0,37.43-4.11,37.43-22.46v-5.14h-37.13c-20.55,0-29.5,1.32-29.35,13.65.15,11.45,7.78,13.94,29.06,13.94Z"/>
     </g>
   </g>
+</svg><svg class="logo-compact" viewBox="0 0 562.38 279.61" aria-hidden="true">
+  <defs><style>.logoFooterCompact{fill:#d8c4a6;}</style></defs>
+  <path class="logoFooterCompact" d="M377.99,138.29c-87.4,0-161.12-58.4-184.39-138.29v279.61c23.27-79.89,96.99-138.29,184.39-138.29s161.12,58.4,184.39,138.29V0c-23.27,79.89-96.99,138.29-184.39,138.29Z"/>
+  <path class="logoFooterCompact" d="M0,.07v279.47c22.47-77.03,91.86-134.05,175.18-137.98v-3.5C91.86,134.12,22.47,77.1,0,.07Z"/>
 </svg></a>
   </div>
   <div class="footer-bottom">
@@ -877,6 +943,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       track.scrollBy({ left: dir * step, behavior: 'smooth' });
     });
   });
+
+  (function() {
+    var toggle = document.getElementById('navToggle');
+    var mobileNav = document.getElementById('mobileNav');
+    if (!toggle || !mobileNav) return;
+
+    function closeMenu() {
+      toggle.classList.remove('is-open');
+      mobileNav.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    function openMenu() {
+      toggle.classList.add('is-open');
+      mobileNav.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    toggle.addEventListener('click', function() {
+      if (mobileNav.classList.contains('is-open')) closeMenu(); else openMenu();
+    });
+    mobileNav.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 1180) closeMenu();
+    });
+  })();
 </script>
 </body>
 </html>
