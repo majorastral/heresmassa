@@ -567,20 +567,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 0; }
     .hero-copy .lede { max-width: 34ch; }
   }
-  @media (max-width: 1279px) {
+  /* 640 a 1279 px: mesma composicao do desktop (texto a esquerda, foto a direita), ajustada para caber */
+  @media (min-width: 640px) and (max-width: 1279px) {
+    .hero { --H: clamp(470px, 56vw, 700px); --textR: calc(var(--edge) + min(480px, 38vw)); min-height: 0; height: var(--H); }
+    .hero-bg img { position: absolute; top: 0; right: calc(-1 * max(0px, var(--textR) + 32px + 1.017 * var(--H) - 100vw)); height: 100%; width: auto; max-width: none; object-fit: initial; }
+    .hero-inner { display: block; min-height: 0; padding-top: 0; padding-bottom: 0; }
+    .hero-copy { max-width: min(480px, 38vw); gap: 18px; }
+    .hero-copy h1 { font-size: clamp(1.9rem, 4.2vw, 3.2rem); }
+    .hero-copy .lede { font-size: clamp(0.84rem, 1.6vw, 0.92rem); max-width: none; }
+  }
+  /* ate 639 px: celular, foto em cima e texto embaixo */
+  @media (max-width: 639px) {
     .hero { display: block; min-height: 0; }
     .hero-bg { position: relative; inset: auto; }
     .hero-bg img { display: block; width: 100%; height: auto; object-fit: initial; }
     .hero-inner { display: block; min-height: 0; padding-top: 0; padding-bottom: 56px; margin-top: calc(-100vw * 2 / 3); }
     .hero-copy { max-width: none; }
   }
-  @media (min-width: 700px) and (max-width: 1279px) {
-    .hero-bg img { height: clamp(420px, 56vw, 640px); object-fit: cover; object-position: 50% 0; }
-    .hero-bg::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 42%;
-      background: linear-gradient(180deg, rgba(242,232,223,0) 0%, rgba(242,232,223,.06) 15%, rgba(242,232,223,.3) 40%, rgba(242,232,223,.7) 70%, #F2E8DF 100%); }
-    .hero-inner { margin-top: -40px; }
-  }
   @media (max-width: 1279px) { .hero-copy .eyebrow { font-size: 0.68rem; letter-spacing: 0.12em; } }
+  @media (min-width: 640px) and (max-width: 799px) { .hero-copy .eyebrow { font-size: 0.6rem; letter-spacing: 0.1em; white-space: nowrap; } }
   @media (max-width: 560px) { .hero-copy .eyebrow { font-size: 0.62rem; letter-spacing: 0.12em; } }
   /* Sobre: fundo colorido para destacar o quadro da foto */
   .sobre { background: var(--sand-2); }
@@ -711,7 +716,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <main id="top">
   <section class="hero">
-    <div class="hero-bg"><picture><source media="(min-width:1280px)" srcset="images/hero-desktop.webp"><img src="images/hero-mobile-900.webp" srcset="images/hero-mobile-600.webp 600w, images/hero-mobile-900.webp 900w" sizes="100vw" width="900" height="1200" alt="" role="presentation" fetchpriority="high"></picture></div>
+    <div class="hero-bg"><picture><source media="(min-width:640px)" srcset="images/hero-desktop.webp"><img src="images/hero-mobile-900.webp" srcset="images/hero-mobile-600.webp 600w, images/hero-mobile-900.webp 900w" sizes="100vw" width="900" height="1200" alt="" role="presentation" fetchpriority="high"></picture></div>
     <div class="hero-overlay"></div>
     <div class="wrap hero-inner">
       <div class="hero-copy">
