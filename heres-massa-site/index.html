@@ -555,6 +555,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .footer-logo { height: 34px; }
     .btn { padding: 16px 28px; }
   }
+
+  /* ---------- Hero com foto (imagens ja trazem o veu de areia) ---------- */
+  .hero-bg picture { display: contents; }
+  .hero { background: var(--sand-1); }
+  .hero-overlay { display: none; }
+  .hero-copy .eyebrow, .hero-copy h1, .hero-copy .lede, .hero-local { color: var(--terra-3); }
+  .hero .btn-outline { background: var(--terra-2); border-color: var(--terra-2); color: var(--sand-1); }
+  .hero .btn-outline:hover { background: var(--terra-1); border-color: var(--terra-1); color: var(--sand-1); transform: translateY(-1px); }
+  @media (min-width: 1280px) {
+    .hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 0; }
+    .hero-copy .lede { max-width: 34ch; }
+  }
+  @media (max-width: 1279px) {
+    .hero { display: block; min-height: 0; }
+    .hero-bg { position: relative; inset: auto; }
+    .hero-bg img { display: block; width: 100%; height: auto; object-fit: initial; }
+    .hero-inner { display: block; min-height: 0; padding-top: 0; padding-bottom: 56px; margin-top: calc(-100vw * 2 / 3); }
+    .hero-copy { max-width: none; }
+  }
+  @media (min-width: 700px) and (max-width: 1279px) {
+    .hero-bg img { height: clamp(420px, 56vw, 640px); object-fit: cover; object-position: 50% 0; }
+    .hero-bg::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 42%;
+      background: linear-gradient(180deg, rgba(242,232,223,0) 0%, rgba(242,232,223,.06) 15%, rgba(242,232,223,.3) 40%, rgba(242,232,223,.7) 70%, #F2E8DF 100%); }
+    .hero-inner { margin-top: -40px; }
+  }
+  @media (max-width: 1279px) { .hero-copy .eyebrow { font-size: 0.68rem; letter-spacing: 0.12em; } }
+  @media (max-width: 560px) { .hero-copy .eyebrow { font-size: 0.62rem; letter-spacing: 0.12em; } }
+  /* Sobre: fundo colorido para destacar o quadro da foto */
+  .sobre { background: var(--sand-2); }
 </style>
 <script type="application/ld+json">
 {
@@ -682,7 +711,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <main id="top">
   <section class="hero">
-    <div class="hero-bg"><img src="images/hero-bg.jpg" alt="" role="presentation" fetchpriority="high"></div>
+    <div class="hero-bg"><picture><source media="(min-width:1280px)" srcset="images/hero-desktop.webp"><img src="images/hero-mobile-900.webp" srcset="images/hero-mobile-600.webp 600w, images/hero-mobile-900.webp 900w" sizes="100vw" width="900" height="1200" alt="" role="presentation" fetchpriority="high"></picture></div>
     <div class="hero-overlay"></div>
     <div class="wrap hero-inner">
       <div class="hero-copy">
@@ -695,7 +724,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             Agendar consulta
           </a>
         </div>
-        <p class="hero-local">Atendimento em Poços de Caldas e Andradas</p>
       </div>
     </div>
   </section>
@@ -703,7 +731,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="sobre" id="sobre">
     <div class="wrap">
       <div class="sobre-media">
-        <img src="images/sobre-dr-heres-atendimento.jpg" alt="Dr. Heres Massa em atendimento" width="1000" height="750" loading="lazy">
+        <img src="images/sobre-dr-heres.jpg" alt="Dr. Heres Massa" width="960" height="1200" loading="lazy">
       </div>
       <div class="sobre-copy">
         <span class="eyebrow">Sobre mim</span>
