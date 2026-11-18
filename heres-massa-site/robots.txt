@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://drheresmassa.com.br/sitemap.xml
